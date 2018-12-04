@@ -30,15 +30,13 @@ Resources:
         Variables:
           REGION: us-west-2
 
-  APIDomainName:
-    Type: AWS::ApiGateway::DomainName
-    Properties:
-      CertificateArn: arn:aws:acm:us-west-2:620169180577:certificate/75622831-3589-47df-9fb6-5d6c2d0e7da4
-      DomainName: !Ref DomainName
-
-  APIBasePathMapping:
+  BasePathMapping:
+    DependsOn: ServerlessFunction
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      DomainName: !Ref APIDomainName
-      RestApiId: !Ref ServerlessRestApi
-      Stage: Prod
+      BasePath: '/hello'
+      DomainName: 'api.homexcloud.com'
+      RestApiId:
+        Ref: ServerlessRestApi
+      Stage:
+        Ref: ServerlessRestApiProdStage
