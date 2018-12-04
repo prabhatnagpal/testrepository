@@ -40,3 +40,8 @@ Resources:
         Ref: ServerlessRestApi
       Stage:
         Ref: ServerlessRestApiProdStage
+
+  helloWorldApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: v1
