@@ -34,7 +34,7 @@ Resources:
     DependsOn: CDDemoLambda
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: '/hello'
+      BasePath: 'hello'
       DomainName: 'api.homexcloud.com'
       RestApiId:
         Ref: ServerlessRestApi
