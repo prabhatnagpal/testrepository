@@ -20,11 +20,13 @@ Resources:
       Environment:
         Variables:
           REGION: us-west-2
-  ServerlessRestApiProdStage:
-    Type: 'AWS::ApiGateway::Stage'
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
     Properties:
       StageName: dev
-  ApiGatewayApiDeployment:
-    Type: 'AWS::ApiGateway::Deployment'
+  MyMapping:
+    Type: 'AWS::ApiGateway::BasePathMapping'
     Properties:
-      StageName: dev
+      BasePath: '/hello'
+      DomainName: 'api.homexcloud.com'
+      Stage: dev
