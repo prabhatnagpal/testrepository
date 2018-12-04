@@ -1,6 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: CD Demo Lambda
+
+Parameters:
+  DomainName:
+    Type: String
+    Default: api.homexcloud.com
+  HostedZoneName:
+    Type: String
+    Default: homexcloud.com
+
 Resources:
   CDDemoLambda:
     Type: 'AWS::Serverless::Function'
@@ -20,13 +29,16 @@ Resources:
       Environment:
         Variables:
           REGION: us-west-2
-  ApiGatewayApi:
-    Type: AWS::Serverless::Api
+
+  APIDomainName:
+    Type: AWS::ApiGateway::DomainName
     Properties:
-      StageName: dev
-  MyMapping:
-    Type: 'AWS::ApiGateway::BasePathMapping'
+      CertificateArn: arn:aws:acm:us-west-2:620169180577:certificate/75622831-3589-47df-9fb6-5d6c2d0e7da4
+      DomainName: !Ref DomainName
+
+  APIBasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: '/hello'
-      DomainName: 'api.homexcloud.com'
-      Stage: dev
+      DomainName: !Ref APIDomainName
+      RestApiId: !Ref ServerlessRestApi
+      Stage: Prod
