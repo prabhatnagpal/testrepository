@@ -20,7 +20,11 @@ Resources:
       Environment:
         Variables:
           REGION: us-west-2
-  ApiGatewayApi:
-    Type: AWS::Serverless::Api
+  ServerlessRestApiProdStage:
+    Type: 'AWS::ApiGateway::Stage'
+    Properties:
+      StageName: dev
+  ApiGatewayApiDeployment:
+    Type: 'AWS::ApiGateway::Deployment'
     Properties:
       StageName: dev
