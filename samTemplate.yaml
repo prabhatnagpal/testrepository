@@ -12,11 +12,15 @@ Resources:
       MemorySize: 128
       Timeout: 30
       Events:
-        getAZsAPI:
+        helloWorldAPI:
           Type: Api
           Properties:
-            Path: /getazs
+            Path: /hello
             Method: get
       Environment:
         Variables:
           REGION: us-west-2
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
