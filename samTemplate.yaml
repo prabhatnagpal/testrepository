@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: CD Demo Lambda
+Description: Homex Demo API
 
 Parameters:
   DomainName:
@@ -11,7 +11,7 @@ Parameters:
     Default: homexcloud.com
 
 Resources:
-  CDDemoLambda:
+  HomexDemoAPI:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: lambda_function.lambda_handler
@@ -24,17 +24,17 @@ Resources:
         helloWorldAPI:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /demoapi
             Method: get
       Environment:
         Variables:
           REGION: us-west-2
 
   BasePathMapping:
-    DependsOn: CDDemoLambda
+    DependsOn: HomexDemoAPI
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: 'hello'
+      BasePath: 'demoapi'
       DomainName: 'api.homexcloud.com'
       RestApiId:
         Ref: ServerlessRestApi
