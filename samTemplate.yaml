@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: Homex Demo API
+Description: HomexCloud Demo API
 
 Parameters:
   DomainName:
@@ -11,7 +11,7 @@ Parameters:
     Default: homexcloud.com
 
 Resources:
-  HomexDemoAPI:
+  HomexCloudDemoAPI:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: lambda_function.lambda_handler
@@ -31,7 +31,7 @@ Resources:
           REGION: us-west-2
 
   BasePathMapping:
-    DependsOn: HomexDemoAPI
+    DependsOn: HomexCloudDemoAPI
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       BasePath: 'demoapi'
