@@ -14,7 +14,7 @@ Resources:
   HomexCloudDemoAPI:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: index.handler
+      Handler: lambda_function.lambda_handler
       Runtime: nodejs8.10
       CodeUri: ./LambdaCode
       Description: 'Lambda function for CD Demo'
@@ -25,7 +25,7 @@ Resources:
           Type: Api
           Properties:
             Path: /location
-            Method: post
+            Method: get
       Environment:
         Variables:
           REGION: us-west-2
