@@ -44,4 +44,11 @@ Resources:
   helloWorldAPI:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: v1
+      StageName: dev
+  
+  helloWorldAPIDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId:
+        Ref: ServerlessRestApi
+      StageName: dev
