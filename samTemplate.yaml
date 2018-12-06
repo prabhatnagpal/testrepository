@@ -42,13 +42,7 @@ Resources:
         Ref: ServerlessRestApiProdStage
 
   helloWorldAPI:
+    DependsOn: ServerlessRestApi
     Type: AWS::Serverless::Api
     Properties:
-      StageName: dev
-  
-  helloWorldAPIDeployment:
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId:
-        Ref: ServerlessRestApi
       StageName: dev
