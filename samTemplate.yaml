@@ -34,7 +34,7 @@ Resources:
     DependsOn: HomexCloudDemoAPI
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      BasePath: 'location'
+      BasePath: ''
       DomainName: 'api.homexcloud.com'
       RestApiId:
         Ref: ServerlessRestApi
