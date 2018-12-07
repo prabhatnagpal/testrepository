@@ -31,7 +31,7 @@ Resources:
           REGION: us-west-2
 
   BasePathMapping:
-    DependsOn: HomexCloudDemoAPI
+    DependsOn: locationAPI
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       BasePath: 'location'

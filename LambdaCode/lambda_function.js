@@ -1,8 +1,35 @@
+const https = require("https");
+var result = '';
+
 module.exports.lambda_handler = (event, context, callback) => {
-  const response =
-    { 
-        statusCode: 200,
-        body: JSON.stringify('Hello World!')
-    };
+  var final_location;
+	var latitude=28.4822749;
+	var longitude=77.3076653;
+  new Promise((resolve, reject) => {
+    var url_google="https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&key=AIzaSyBLvbHraQAuxplLf7JP-jloLz4_t_HKlUM";
+    const req = https.request(url_google, (res) => {
+      let data = '';
+    	res.on('data', (chunk) => {
+    		data += chunk;
+  	  });
+  	  res.on('end', () => {
+    		var dat = JSON.parse(data);
+    		var length = dat.results[0].address_components.length;
+    		var country = JSON.stringify(dat.results[0].address_components[length-2].long_name);
+    		var state = JSON.stringify(dat.results[0].address_components[length-3].long_name);
+    		var city = JSON.stringify(dat.results[0].address_components[length-5].long_name);
+    		var google_location = '{ "City" :' +city+',"State" :' +state+',"Country" :' +country+'}';
+    		final_location=JSON.parse(google_location);
+    		resolve(final_location);
+    		result = JSON.stringify(final_location);
+    		return final_location;
+  	  });
+  	}).on("error", (err) => {
+  	  reject(err.message);
+  	});
+  	req.write('');
+    req.end();
+  });
+  const response = {body: result};
   callback(null, response);
 };
