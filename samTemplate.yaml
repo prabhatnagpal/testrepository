@@ -9,6 +9,10 @@ Parameters:
   HostedZoneName:
     Type: String
     Default: homexcloud.com
+  StageName:
+    Type: String
+    Default: dev
+    Description: The Lambda Function and API Gateway Stage
 
 Resources:
   HomexCloudDemoAPI:
@@ -20,15 +24,18 @@ Resources:
       Description: 'Lambda function for CD Demo'
       MemorySize: 128
       Timeout: 30
+      Environment:
+        Variables:
+          STAGE: !Ref StageName
+          REGION: us-west-2
       Events:
-        locationAPI:
+        locationAPIRequest:
           Type: Api
           Properties:
             Path: /location
             Method: post
-      Environment:
-        Variables:
-          REGION: us-west-2
+            RestApiId:
+              Ref: locationAPI
 
   BasePathMapping:
     DependsOn: HomexCloudDemoAPI
@@ -40,3 +47,23 @@ Resources:
         Ref: ServerlessRestApi
       Stage:
         Ref: ServerlessRestApiProdStage
+
+  ExampleAPI:
+    Type: 'AWS::Serverless::Api'
+    Properties:
+      StageName: !Ref StageName
+      DefinitionBody:
+        swagger: 2.0
+        info:
+          title: !Sub API-${FunctionName}-${StageName}
+        paths:
+          /location:
+            x-amazon-apigateway-any-method:
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                uri:
+                  !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HomexCloudDemoAPI.Arn}/invocations"
+                passthroughBehavior: when_no_match
+                httpMethod: POST
+                type: aws
