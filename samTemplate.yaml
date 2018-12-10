@@ -38,6 +38,7 @@ Resources:
           Properties:
             Path: /location
             Method: post
+            Cors: true
             RestApiId:
               Ref: locationAPI
 
@@ -69,10 +70,3 @@ Resources:
                 passthroughBehavior: when_no_match
                 httpMethod: POST
                 type: aws
-                
-  locationAPIDeployment:
-    Type: 'AWS::ApiGateway::Deployment'
-    Properties:
-      RestApiId:
-        Ref: locationAPI
-      StageName: !Ref StageName
