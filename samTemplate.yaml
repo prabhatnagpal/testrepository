@@ -79,12 +79,15 @@ Resources:
                   description: "200 response"
                   schema:
                     $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
               x-amazon-apigateway-integration:
                 responses:
                   default:
                     statusCode: "200"
-                  responseTemplates:
-                    application/json: ""
+                    responseParameters:
+                       method.response.header.Access-Control-Allow-Origin: "'*'"
                 uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HomexCloudDemoAPI.Arn}/invocations"
                 passthroughBehavior: "when_no_templates"
                 httpMethod: "POST"
@@ -112,8 +115,6 @@ Resources:
                       method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
                       method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
                       method.response.header.Access-Control-Allow-Origin: "'*'"
-                    responseTemplates:
-                      application/json: ""
                 passthroughBehavior: "when_no_match"
                 type: "mock"
         definitions:
