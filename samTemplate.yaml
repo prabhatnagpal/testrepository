@@ -2,6 +2,15 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: HomexCloud Demo API
 
+Globals:
+  Function:
+    Runtime: nodejs8.10
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+
 Parameters:
   DomainName:
     Type: String
@@ -38,7 +47,6 @@ Resources:
           Properties:
             Path: /location
             Method: post
-            Cors: true
             RestApiId:
               Ref: locationAPI
 
