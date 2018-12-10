@@ -43,7 +43,7 @@ Resources:
 
   BasePathMapping:
     DependsOn: HomexCloudDemoAPI
-    Type: AWS::ApiGateway::BasePathMapping
+    Type: 'AWS::ApiGateway::BasePathMapping'
     Properties:
       BasePath: 'demo'
       DomainName: 'api.homexcloud.com'
@@ -59,15 +59,20 @@ Resources:
       DefinitionBody:
         swagger: 2.0
         info:
-          title: !Sub API-${FunctionName}-${StageName}
+          title: !Sub HomexCloud-${FunctionName}
         paths:
           /location:
-            x-amazon-apigateway-any-method:
-              produces:
-                - application/json
+            post:
               x-amazon-apigateway-integration:
                 uri:
                   !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HomexCloudDemoAPI.Arn}/invocations"
                 passthroughBehavior: when_no_match
                 httpMethod: POST
                 type: aws
+                
+  locationAPIDeployment:
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId:
+        Ref: locationAPI
+      StageName: !Ref StageName
