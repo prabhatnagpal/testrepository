@@ -120,21 +120,3 @@ Resources:
           Empty:
             type: "object"
             title: "Empty Schema"
-  
-  locationAPI:
-    Type: 'AWS::Serverless::Api'
-    Properties:
-      StageName: !Ref StageName
-      DefinitionBody:
-        swagger: 2.0
-        info:
-          title: !Sub HomexCloud-${FunctionName}
-        paths:
-          /location:
-            post:
-              x-amazon-apigateway-integration:
-                uri:
-                  !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HomexCloudDemoAPI.Arn}/invocations"
-                passthroughBehavior: when_no_match
-                httpMethod: POST
-                type: aws
