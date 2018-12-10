@@ -25,7 +25,7 @@ Resources:
           Type: Api
           Properties:
             Path: /location
-            Method: get
+            Method: post
       Environment:
         Variables:
           REGION: us-west-2

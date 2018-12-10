@@ -1,10 +1,10 @@
 const https = require("https");
-var result = '';
+var result;
 
-module.exports.lambda_handler = (event, context, callback) => {
+module.exports.lambda_handler = async (event, context, callback) => {
 	var final_location;
-	var latitude=28.4822749;
-	var longitude=77.3076653;
+	var latitude=event.latitude;
+	var longitude=event.longitude;
 	new Promise((resolve, reject) => {
 		var url_google="https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&key=AIzaSyBLvbHraQAuxplLf7JP-jloLz4_t_HKlUM";
 		const req = https.request(url_google, (res) => {
