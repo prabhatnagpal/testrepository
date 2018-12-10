@@ -13,6 +13,10 @@ Parameters:
     Type: String
     Default: dev
     Description: The Lambda Function and API Gateway Stage
+  FunctionName:
+    Type: String
+    Default: getLocation
+    Description: The Lambda Function Name
 
 Resources:
   HomexCloudDemoAPI:
