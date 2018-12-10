@@ -44,9 +44,9 @@ Resources:
       BasePath: 'demo'
       DomainName: 'api.homexcloud.com'
       RestApiId:
-        Ref: ServerlessRestApi
+        Ref: locationAPI
       Stage:
-        Ref: ServerlessRestApiProdStage
+        Ref: locationAPIStage
 
   locationAPI:
     Type: 'AWS::Serverless::Api'
