@@ -48,7 +48,7 @@ Resources:
       Stage:
         Ref: ServerlessRestApiProdStage
 
-  ExampleAPI:
+  locationAPI:
     Type: 'AWS::Serverless::Api'
     Properties:
       StageName: !Ref StageName
