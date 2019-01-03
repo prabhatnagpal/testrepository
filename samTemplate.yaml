@@ -131,7 +131,7 @@ Resources:
   HomexcloudApiDemo:
     Type: 'AWS::Serverless::Api'
     Properties:
-      StageName: RP-Dev
+      StageName: dev
       DefinitionBody:
         swagger: '2.0'
         info:
