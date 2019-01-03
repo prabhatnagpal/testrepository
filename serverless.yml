@@ -1,0 +1,348 @@
+service: homexcloud-api-demo
+description: HomexCloud APIs for Account administrator, Administrator can manage account, users and devices
+version: V1.0.0
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: RP-Dev
+  region: us-west-2
+  environment:
+    USERS_TABLE: ${self:custom.table.userTable}
+    ACCOUNT_TABLE: ${self:custom.table.accountTable}
+    PANEL_TABLE: ${self:custom.table.panelTable}
+    ACCESS_LOG_TABLE: ${self:custom.table.accesslogTable}
+    INTERESTS_TABLE: ${self:custom.table.interestsTable}
+    USERINTERESTS_TABLE: ${self:custom.table.userinterestsTable}
+plugins:
+  - serverless-domain-manager
+  - serverless-aws-documentation
+  - serverless-offline
+  - serverless-sam
+
+custom:
+  tableThroughput: 5
+  table:
+    accountTable:  account
+    userTable:  user
+    panelTable:  homex-panel
+    accesslogTable: accesslog
+    interestsTable: interests
+    userinterestsTable: userinterests
+  customDomain:
+    domainName: 'api.homexcloud.com'
+    basePath: 'v1'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
+functions:
+  verify-token:
+    handler: auth/authHandler.auth
+
+  verifyUser:
+    handler: handler.handler
+    events:
+      - http:
+          path: /verify
+          method: POST
+          cors: true
+
+  createaccount:
+    handler: handler.handler
+    events:
+      - http:
+          path: /account
+          method: POST
+          cors: true
+
+  listaccount:
+    handler: handler.handler
+    events:
+      - http:
+          path: /account/{id}
+          method: GET
+          cors: true
+          authorizer: verify-token
+
+  updateaccount:
+    handler: handler.handler
+    events:
+      - http:
+          path: /account/{id}
+          method: PUT
+          cors: true
+          authorizer: verify-token
+
+  createuser:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user
+          method: POST
+          cors: true
+
+  isuserconfirmed:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/isconfirmed
+          method: POST
+          cors: true 
+
+  listuser:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/{id}
+          method: GET
+          cors: true
+          authorizer: verify-token
+
+
+  updateuserprofile:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/{id}/profile
+          method: PUT
+          cors: true
+          authorizer: verify-token
+
+  refreshtoken:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/{id}/refreshtoken
+          method: POST
+          cors: true
+          authorizer: verify-token
+
+  joinhomexaccount:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/{id}/join
+          method: PUT
+          cors: true
+          authorizer: verify-token
+		  
+  adduserinterest:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/{id}/interest
+          method: POST
+          cors: true
+          authorizer: verify-token
+
+  listUserByAccount:
+    handler: handler.handler
+    events:
+      - http:
+          path: /account/{id}/user
+          method: GET
+          cors: true
+          authorizer: verify-token
+
+  login:
+    handler: handler.handler
+    events:
+      - http:
+          path: /login
+          method: POST
+          cors: true
+
+  logout:
+    handler: handler.handler
+    events:
+      - http:
+          path: /logout
+          method: POST
+          cors: true
+          
+  resetpasswordcode:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/resetpasswordcode
+          method: POST
+          cors: true
+
+  resetPassword:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/resetpassword
+          method: POST
+          cors: true
+
+
+  addinterestmetdata:
+    handler: handler.handler
+    events:
+      - http:
+          path: /interest
+          method: POST
+          cors: true
+          authorizer: verify-token
+
+  listinterests:
+    handler: handler.handler
+    events:
+      - http:
+          path: /interest
+          method: GET
+          cors: true
+          authorizer: verify-token
+
+  listUserinterest:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/{id}/interest
+          method: GET
+          cors: true
+          authorizer: verify-token
+
+  resendConfirmation:
+    handler: handler.handler
+    events:
+      - http:
+          path: /user/resendconfirmation
+          method: POST
+          cors: true
+
+  addHomexCloudPanel:
+    handler: handler.handler
+    events:
+      - http:
+          path: /homexpanel
+          method: POST
+          cors: true
+          authorizer: verify-token
+
+  removeSlaveHomexCloudPanel:
+    handler: handler.handler
+    events:
+      - http:
+          path: /homexpanel/{id}
+          method: PUT
+          cors: true
+          authorizer: verify-token
+
+  listHomexCloudSlavePanelForAccount:
+    handler: handler.handler
+    events:
+      - http:
+          path: /account/{id}/homexpanel
+          method: GET
+          cors: true
+          authorizer: verify-token
+  removeHomexCloudSlavePanelFromAccount:
+    handler: handler.handler
+    events:
+      - http:
+          path: /account/{id}/homexpanel/{panelId}
+          method: PUT
+          cors: true
+          authorizer: verify-token
+
+resources:
+   Resources:
+    accountDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.table.accountTable}
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput: 
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+    userDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.table.userTable}
+        AttributeDefinitions:
+          -
+            AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userName
+            KeyType: HASH
+        ProvisionedThroughput: 
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+    panelDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.table.panelTable}
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput: 
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+    accessLogDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.table.accesslogTable}
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput: 
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+    interestsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.table.interestsTable}
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput: 
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+    userinterestsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.table.userinterestsTable}
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput: 
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+

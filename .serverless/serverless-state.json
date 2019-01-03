@@ -1,0 +1,1042 @@
+{
+  "service": {
+    "service": "homexcloud-api-demo",
+    "serviceObject": {
+      "name": "homexcloud-api-demo"
+    },
+    "provider": {
+      "stage": "RP-Dev",
+      "region": "us-west-2",
+      "variableSyntax": "\\${([ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}",
+      "name": "aws",
+      "runtime": "nodejs8.10",
+      "environment": {
+        "USERS_TABLE": "user",
+        "ACCOUNT_TABLE": "account",
+        "PANEL_TABLE": "homex-panel",
+        "ACCESS_LOG_TABLE": "accesslog",
+        "INTERESTS_TABLE": "interests",
+        "USERINTERESTS_TABLE": "userinterests"
+      },
+      "versionFunctions": true,
+      "remoteFunctionData": null,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          },
+          "VerifyDashtokenLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "VerifyUserLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "CreateaccountLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ListaccountLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "UpdateaccountLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "CreateuserLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "IsuserconfirmedLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ListuserLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "UpdateuserprofileLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "RefreshtokenLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "JoinhomexaccountLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "AdduserinterestLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ListUserByAccountLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "LoginLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "LogoutLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ResetpasswordcodeLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ResetPasswordLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "AddinterestmetdataLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ListinterestsLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ListUserinterestLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ResendConfirmationLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "AddHomexCloudPanelLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "RemoveSlaveHomexCloudPanelLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "ListHomexCloudSlavePanelForAccountLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "RemoveHomexCloudSlavePanelFromAccountLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/undefined"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "RP-Dev",
+                        "homexcloud-api-demo",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/undefined:*:*"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "homexcloud-api-demo",
+                    "RP-Dev",
+                    "us-west-2",
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "accountDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "TableName": "account",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              }
+            }
+          },
+          "userDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "TableName": "user",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "userName",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "userName",
+                  "KeyType": "HASH"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              }
+            }
+          },
+          "panelDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "TableName": "homex-panel",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              }
+            }
+          },
+          "accessLogDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "TableName": "accesslog",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              }
+            }
+          },
+          "interestsDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "TableName": "interests",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              }
+            }
+          },
+          "userinterestsDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "TableName": "userinterests",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      }
+    },
+    "custom": {
+      "tableThroughput": 5,
+      "table": {
+        "accountTable": "account",
+        "userTable": "user",
+        "panelTable": "homex-panel",
+        "accesslogTable": "accesslog",
+        "interestsTable": "interests",
+        "userinterestsTable": "userinterests"
+      },
+      "customDomain": {
+        "domainName": "api.homexcloud.com",
+        "basePath": "v1",
+        "stage": "RP-Dev",
+        "createRoute53Record": true
+      }
+    },
+    "plugins": [
+      "serverless-domain-manager",
+      "serverless-aws-documentation",
+      "serverless-offline",
+      "serverless-sam"
+    ],
+    "pluginsData": {},
+    "functions": {
+      "verify-token": {
+        "handler": "auth/authHandler.auth"
+      },
+      "verifyUser": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/verify",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "createaccount": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/account",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "listaccount": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/account/{id}",
+              "method": "GET",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "updateaccount": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/account/{id}",
+              "method": "PUT",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "createuser": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "isuserconfirmed": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/isconfirmed",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "listuser": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/{id}",
+              "method": "GET",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "updateuserprofile": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/{id}/profile",
+              "method": "PUT",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "refreshtoken": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/{id}/refreshtoken",
+              "method": "POST",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "joinhomexaccount": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/{id}/join",
+              "method": "PUT",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "adduserinterest": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/{id}/interest",
+              "method": "POST",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "listUserByAccount": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/account/{id}/user",
+              "method": "GET",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "login": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/login",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "logout": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/logout",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "resetpasswordcode": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/resetpasswordcode",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "resetPassword": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/resetpassword",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "addinterestmetdata": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/interest",
+              "method": "POST",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "listinterests": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/interest",
+              "method": "GET",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "listUserinterest": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/{id}/interest",
+              "method": "GET",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "resendConfirmation": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/user/resendconfirmation",
+              "method": "POST",
+              "cors": true
+            }
+          }
+        ]
+      },
+      "addHomexCloudPanel": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/homexpanel",
+              "method": "POST",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "removeSlaveHomexCloudPanel": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/homexpanel/{id}",
+              "method": "PUT",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "listHomexCloudSlavePanelForAccount": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/account/{id}/homexpanel",
+              "method": "GET",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      },
+      "removeHomexCloudSlavePanelFromAccount": {
+        "handler": "handler.handler",
+        "events": [
+          {
+            "http": {
+              "path": "/account/{id}/homexpanel/{panelId}",
+              "method": "PUT",
+              "cors": true,
+              "authorizer": "verify-token"
+            }
+          }
+        ]
+      }
+    },
+    "resources": {
+      "Resources": {
+        "accountDynamoDBTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "TableName": "account",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          }
+        },
+        "userDynamoDBTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "TableName": "user",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "userName",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "userName",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          }
+        },
+        "panelDynamoDBTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "TableName": "homex-panel",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          }
+        },
+        "accessLogDynamoDBTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "TableName": "accesslog",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          }
+        },
+        "interestsDynamoDBTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "TableName": "interests",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          }
+        },
+        "userinterestsDynamoDBTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "TableName": "userinterests",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          }
+        }
+      },
+      "Outputs": {}
+    }
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/homexcloud-api-demo/RP-Dev/1546511625040-2019-01-03T10:33:45.040Z",
+    "artifact": ""
+  }
+}
