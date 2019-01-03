@@ -5,18 +5,18 @@
       "name": "homexcloud-api-demo"
     },
     "provider": {
-      "stage": "RP-Dev",
+      "stage": "dev",
       "region": "us-west-2",
       "variableSyntax": "\\${([ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}",
       "name": "aws",
       "runtime": "nodejs8.10",
       "environment": {
-        "USERS_TABLE": "user",
-        "ACCOUNT_TABLE": "account",
-        "PANEL_TABLE": "homex-panel",
-        "ACCESS_LOG_TABLE": "accesslog",
-        "INTERESTS_TABLE": "interests",
-        "USERINTERESTS_TABLE": "userinterests"
+        "USERS_TABLE": "user-demo",
+        "ACCOUNT_TABLE": "account-demo",
+        "PANEL_TABLE": "homex-panel-demo",
+        "ACCESS_LOG_TABLE": "accesslog-demo",
+        "INTERESTS_TABLE": "interests-demo",
+        "USERINTERESTS_TABLE": "userinterests-demo"
       },
       "versionFunctions": true,
       "remoteFunctionData": null,
@@ -202,7 +202,7 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "RP-Dev",
+                        "dev",
                         "homexcloud-api-demo",
                         "lambda"
                       ]
@@ -387,7 +387,7 @@
                   "-",
                   [
                     "homexcloud-api-demo",
-                    "RP-Dev",
+                    "dev",
                     "us-west-2",
                     "lambdaRole"
                   ]
@@ -399,7 +399,7 @@
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Retain",
             "Properties": {
-              "TableName": "account",
+              "TableName": "account-demo",
               "AttributeDefinitions": [
                 {
                   "AttributeName": "id",
@@ -422,7 +422,7 @@
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Retain",
             "Properties": {
-              "TableName": "user",
+              "TableName": "user-demo",
               "AttributeDefinitions": [
                 {
                   "AttributeName": "userName",
@@ -445,7 +445,7 @@
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Retain",
             "Properties": {
-              "TableName": "homex-panel",
+              "TableName": "homex-panel-demo",
               "AttributeDefinitions": [
                 {
                   "AttributeName": "id",
@@ -468,7 +468,7 @@
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Retain",
             "Properties": {
-              "TableName": "accesslog",
+              "TableName": "accesslog-demo",
               "AttributeDefinitions": [
                 {
                   "AttributeName": "id",
@@ -491,7 +491,7 @@
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Retain",
             "Properties": {
-              "TableName": "interests",
+              "TableName": "interests-demo",
               "AttributeDefinitions": [
                 {
                   "AttributeName": "id",
@@ -514,7 +514,7 @@
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Retain",
             "Properties": {
-              "TableName": "userinterests",
+              "TableName": "userinterests-demo",
               "AttributeDefinitions": [
                 {
                   "AttributeName": "id",
@@ -562,17 +562,17 @@
     "custom": {
       "tableThroughput": 5,
       "table": {
-        "accountTable": "account",
-        "userTable": "user",
-        "panelTable": "homex-panel",
-        "accesslogTable": "accesslog",
-        "interestsTable": "interests",
-        "userinterestsTable": "userinterests"
+        "accountTable": "account-demo",
+        "userTable": "user-demo",
+        "panelTable": "homex-panel-demo",
+        "accesslogTable": "accesslog-demo",
+        "interestsTable": "interests-demo",
+        "userinterestsTable": "userinterests-demo"
       },
       "customDomain": {
         "domainName": "api.homexcloud.com",
-        "basePath": "v1",
-        "stage": "RP-Dev",
+        "basePath": "v2",
+        "stage": "dev",
         "createRoute53Record": true
       }
     },
@@ -897,7 +897,7 @@
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Retain",
           "Properties": {
-            "TableName": "account",
+            "TableName": "account-demo",
             "AttributeDefinitions": [
               {
                 "AttributeName": "id",
@@ -920,7 +920,7 @@
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Retain",
           "Properties": {
-            "TableName": "user",
+            "TableName": "user-demo",
             "AttributeDefinitions": [
               {
                 "AttributeName": "userName",
@@ -943,7 +943,7 @@
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Retain",
           "Properties": {
-            "TableName": "homex-panel",
+            "TableName": "homex-panel-demo",
             "AttributeDefinitions": [
               {
                 "AttributeName": "id",
@@ -966,7 +966,7 @@
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Retain",
           "Properties": {
-            "TableName": "accesslog",
+            "TableName": "accesslog-demo",
             "AttributeDefinitions": [
               {
                 "AttributeName": "id",
@@ -989,7 +989,7 @@
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Retain",
           "Properties": {
-            "TableName": "interests",
+            "TableName": "interests-demo",
             "AttributeDefinitions": [
               {
                 "AttributeName": "id",
@@ -1012,7 +1012,7 @@
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Retain",
           "Properties": {
-            "TableName": "userinterests",
+            "TableName": "userinterests-demo",
             "AttributeDefinitions": [
               {
                 "AttributeName": "id",
@@ -1036,7 +1036,7 @@
     }
   },
   "package": {
-    "artifactDirectoryName": "serverless/homexcloud-api-demo/RP-Dev/1546511625040-2019-01-03T10:33:45.040Z",
+    "artifactDirectoryName": "serverless/homexcloud-api-demo/dev/1546520277454-2019-01-03T12:57:57.454Z",
     "artifact": ""
   }
 }

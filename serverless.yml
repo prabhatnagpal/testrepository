@@ -5,7 +5,7 @@ version: V1.0.0
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: RP-Dev
+  stage: dev
   region: us-west-2
   environment:
     USERS_TABLE: ${self:custom.table.userTable}
@@ -23,15 +23,15 @@ plugins:
 custom:
   tableThroughput: 5
   table:
-    accountTable:  account
-    userTable:  user
-    panelTable:  homex-panel
-    accesslogTable: accesslog
-    interestsTable: interests
-    userinterestsTable: userinterests
+    accountTable:  account-demo
+    userTable:  user-demo
+    panelTable:  homex-panel-demo
+    accesslogTable: accesslog-demo
+    interestsTable: interests-demo
+    userinterestsTable: userinterests-demo
   customDomain:
     domainName: 'api.homexcloud.com'
-    basePath: 'v1'
+    basePath: 'v2'
     stage: ${self:provider.stage}
     createRoute53Record: true
 

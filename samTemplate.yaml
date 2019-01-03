@@ -2,11 +2,11 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: 'SAM template for Serverless framework service: '
 Resources:
-  accountDemoDynamoDBTable:
+  accountDynamoDBTable:
     Type: 'AWS::DynamoDB::Table'
     DeletionPolicy: Retain
     Properties:
-      TableName: account
+      TableName: account-demo
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -16,11 +16,11 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-  userDemoDynamoDBTable:
+  userDynamoDBTable:
     Type: 'AWS::DynamoDB::Table'
     DeletionPolicy: Retain
     Properties:
-      TableName: user
+      TableName: user-demo
       AttributeDefinitions:
         - AttributeName: userName
           AttributeType: S
@@ -30,11 +30,11 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-  panelDemoDynamoDBTable:
+  panelDynamoDBTable:
     Type: 'AWS::DynamoDB::Table'
     DeletionPolicy: Retain
     Properties:
-      TableName: homex-panel
+      TableName: homex-panel-demo
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -44,11 +44,11 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-  accessLogDemoDynamoDBTable:
+  accessLogDynamoDBTable:
     Type: 'AWS::DynamoDB::Table'
     DeletionPolicy: Retain
     Properties:
-      TableName: accesslog
+      TableName: accesslog-demo
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -58,11 +58,11 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-  interestsDemoDynamoDBTable:
+  interestsDynamoDBTable:
     Type: 'AWS::DynamoDB::Table'
     DeletionPolicy: Retain
     Properties:
-      TableName: interests
+      TableName: interests-demo
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -72,11 +72,11 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-  userInterestsDemoDynamoDBTable:
+  userinterestsDynamoDBTable:
     Type: 'AWS::DynamoDB::Table'
     DeletionPolicy: Retain
     Properties:
-      TableName: userinterests
+      TableName: userinterests-demo
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -92,34 +92,34 @@ Resources:
       Handler: auth/authHandler.auth
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
   VerifyUser:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1300,17 +1300,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1334,17 +1334,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1379,17 +1379,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1413,17 +1413,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1447,17 +1447,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1481,17 +1481,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1515,17 +1515,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1549,17 +1549,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1583,17 +1583,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1617,17 +1617,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1651,17 +1651,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1685,17 +1685,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1719,17 +1719,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1753,17 +1753,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1787,17 +1787,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1821,17 +1821,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1855,17 +1855,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1889,17 +1889,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1923,17 +1923,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1957,17 +1957,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -1991,17 +1991,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -2025,17 +2025,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api
@@ -2059,17 +2059,17 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        ./.serverless/homexcloud-api-demo.zip
+        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
         Variables:
-          USERS_TABLE: user
-          ACCOUNT_TABLE: account
-          PANEL_TABLE: homex-panel
-          ACCESS_LOG_TABLE: accesslog
-          INTERESTS_TABLE: interests
-          USERINTERESTS_TABLE: userinterests
+          USERS_TABLE: user-demo
+          ACCOUNT_TABLE: account-demo
+          PANEL_TABLE: homex-panel-demo
+          ACCESS_LOG_TABLE: accesslog-demo
+          INTERESTS_TABLE: interests-demo
+          USERINTERESTS_TABLE: userinterests-demo
       Events:
         Event1:
           Type: Api

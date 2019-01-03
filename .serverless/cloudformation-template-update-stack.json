@@ -180,7 +180,7 @@
               "Fn::Join": [
                 "-",
                 [
-                  "RP-Dev",
+                  "dev",
                   "homexcloud-api-demo",
                   "lambda"
                 ]
@@ -365,7 +365,7 @@
             "-",
             [
               "homexcloud-api-demo",
-              "RP-Dev",
+              "dev",
               "us-west-2",
               "lambdaRole"
             ]
@@ -377,7 +377,7 @@
       "Type": "AWS::DynamoDB::Table",
       "DeletionPolicy": "Retain",
       "Properties": {
-        "TableName": "account",
+        "TableName": "account-demo",
         "AttributeDefinitions": [
           {
             "AttributeName": "id",
@@ -400,7 +400,7 @@
       "Type": "AWS::DynamoDB::Table",
       "DeletionPolicy": "Retain",
       "Properties": {
-        "TableName": "user",
+        "TableName": "user-demo",
         "AttributeDefinitions": [
           {
             "AttributeName": "userName",
@@ -423,7 +423,7 @@
       "Type": "AWS::DynamoDB::Table",
       "DeletionPolicy": "Retain",
       "Properties": {
-        "TableName": "homex-panel",
+        "TableName": "homex-panel-demo",
         "AttributeDefinitions": [
           {
             "AttributeName": "id",
@@ -446,7 +446,7 @@
       "Type": "AWS::DynamoDB::Table",
       "DeletionPolicy": "Retain",
       "Properties": {
-        "TableName": "accesslog",
+        "TableName": "accesslog-demo",
         "AttributeDefinitions": [
           {
             "AttributeName": "id",
@@ -469,7 +469,7 @@
       "Type": "AWS::DynamoDB::Table",
       "DeletionPolicy": "Retain",
       "Properties": {
-        "TableName": "interests",
+        "TableName": "interests-demo",
         "AttributeDefinitions": [
           {
             "AttributeName": "id",
@@ -492,7 +492,7 @@
       "Type": "AWS::DynamoDB::Table",
       "DeletionPolicy": "Retain",
       "Properties": {
-        "TableName": "userinterests",
+        "TableName": "userinterests-demo",
         "AttributeDefinitions": [
           {
             "AttributeName": "id",
