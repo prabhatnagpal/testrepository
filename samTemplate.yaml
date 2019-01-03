@@ -92,7 +92,7 @@ Resources:
       Handler: auth/authHandler.auth
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -109,7 +109,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1300,7 +1300,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1334,7 +1334,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1379,7 +1379,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1413,7 +1413,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1447,7 +1447,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1481,7 +1481,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1515,7 +1515,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1549,7 +1549,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1583,7 +1583,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1617,7 +1617,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1651,7 +1651,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1685,7 +1685,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1719,7 +1719,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1753,7 +1753,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1787,7 +1787,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1821,7 +1821,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1855,7 +1855,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1889,7 +1889,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1923,7 +1923,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1957,7 +1957,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -1991,7 +1991,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -2025,7 +2025,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -2059,7 +2059,7 @@ Resources:
       Handler: handler.handler
       Runtime: nodejs8.10
       CodeUri: >-
-        D:\serverless\testrepository.git\trunk\.serverless\homexcloud-api-demo.zip
+        ./.serverless/homexcloud-api-demo.zip
       MemorySize: 128
       Timeout: 3
       Environment:
