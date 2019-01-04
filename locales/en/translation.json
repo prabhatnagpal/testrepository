@@ -1,0 +1,23 @@
+{
+    "EmailIdNotFound":"Email cannot be empty",
+    "WrongFormattedEmailId": "Email is not correct",
+    "SerialNumberNotFound":"Device Serial Number cannot be empty",
+    "AddressNotFound": "Address, city ,state, country and zip cannot be empty",
+    "AccountCreationError": "Something went wrong. Please try again.",
+    "AccountNotFound":"Something went wrong. Please try again.",
+    "UsernameNotFound": "UserName cannot be empty.",
+    "PasswordNotFound": "Password cannot be empty.",
+    "WrongCredentials": "Either email or password does not match",
+    "AccountIdNotFound": "AccountId cannot be empty",
+    "FirstNameNotFound": "FirstName cannot be empty.",
+    "RoleNotFound": "Role cannot be empty.",
+    "UserNameAlreadyExists":"UserName already exist",
+    "UserNotFound":"No User found",
+    "VerifyUserError":"Could not verify account!",
+    "UsernameMustEMail": "UserName must be an email adddress",
+    "UserNotConfirmedException": "User is not confirmed.",
+    "EmailIDNotExist": "Email does not exist",
+    "WrongPassword" : "Wrong password",
+    "InvalidPasswordException":"Password did not conform with policy"
+    
+}

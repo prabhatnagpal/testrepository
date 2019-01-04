@@ -1,0 +1,8 @@
+# Visual Studio Code Files
+**/.vscode
+
+# serverless Framework Files
+**/.serverless
+
+# dependencies
+**/node_modules

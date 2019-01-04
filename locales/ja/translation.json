@@ -1,0 +1,22 @@
+{
+    "EmailIdNotFound":"emailIdは空にできません",
+    "WrongFormattedEmailId": "電子メールIDが正しくない",
+    "SerialNumberNotFound":"デバイスシリアル番号は空にできません",
+    "AddressNotFound": "住所、市、州、国、およびzipは空にできません",
+    "AccountCreationError": "何かが間違っていた。 もう一度お試しください。",
+    "AccountNotFound":"何かが間違っていた。 もう一度お試しください。",
+    "UsernameNotFound": "userNameを空にすることはできません。",
+    "PasswordNotFound": "パスワードを空にすることはできません。",
+    "WrongCredentials": "間違ったユーザー名またはパスワード",
+    "AccountIdNotFound": "accountIdは空にできません",
+    "FirstNameNotFound": "firstNameは空にできません。",
+    "RoleNotFound": "ロールを空にすることはできません。",
+    "UserNameAlreadyExists":"UserNameは既に存在します",
+    "UserNotFound":"ユーザーが見つかりません",
+    "VerifyUserError":"アカウントを確認できませんでした。",
+    "UsernameMustEMail": "UserName must be an email adddress",
+    "UserNotConfirmedException": "User is not confirmed",
+    "EmailIDNotExist": "EmailId does not exist",
+    "WrongPassword" : "Wrong password",
+    "InvalidPasswordException":"Password did not conform with policy"
+}

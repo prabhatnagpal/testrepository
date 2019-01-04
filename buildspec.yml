@@ -2,10 +2,7 @@ version: 0.1
 phases:
   install:
     commands:
-      - npm install serverless-sam --save-dev
-      - npm install serverless-domain-manager --save-dev
-      - npm install serverless-aws-documentation --save-dev
-      - npm install serverless-offline --save-dev
+      - serverless sam export --output ./samTemplate.yaml
       - aws cloudformation package --template-file samTemplate.yaml --s3-bucket homex-lambda-pipeline --output-template-file outputSamTemplate.yaml
 artifacts:
   type: zip

@@ -1,0 +1,37 @@
+{
+  "name": "homex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ram Vir Singh",
+  "license": "ISC",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^3.0.6",
+    "aws-sdk": "^2.382.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "i18next": "^12.1.0",
+    "i18next-express-middleware": "^1.7.0",
+    "i18next-node-fs-backend": "^2.1.1",
+    "jsonwebtoken": "^8.3.0",
+    "jwk-to-pem": "^2.0.1",
+    "node-fetch": "^2.2.0",
+    "serverless-http": "^1.7.2",
+    "uuid": "^3.3.2",
+    "validator": "^10.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.11.1",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-domain-manager": "^2.6.10",
+    "serverless-offline": "^3.31.3",
+    "serverless-sam": "^0.2.0"
+  }
+}
