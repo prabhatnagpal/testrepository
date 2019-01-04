@@ -2,6 +2,7 @@ version: 0.1
 phases:
   install:
     commands:
+      - npm install serverless -g
       - aws cloudformation package --template-file samTemplate.yaml --s3-bucket homex-lambda-pipeline --output-template-file outputSamTemplate.yaml
 artifacts:
   type: zip
