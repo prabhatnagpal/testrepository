@@ -165,7 +165,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${VerifyUser.Arn}/invocations
@@ -214,7 +214,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Createaccount.Arn}/invocations
@@ -263,7 +263,7 @@ Resources:
             get:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Listaccount.Arn}/invocations
@@ -290,7 +290,7 @@ Resources:
             put:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Updateaccount.Arn}/invocations
@@ -341,7 +341,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Createuser.Arn}/invocations
@@ -390,7 +390,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Isuserconfirmed.Arn}/invocations
@@ -439,7 +439,7 @@ Resources:
             get:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Listuser.Arn}/invocations
@@ -490,7 +490,7 @@ Resources:
             put:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Updateuserprofile.Arn}/invocations
@@ -541,7 +541,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Refreshtoken.Arn}/invocations
@@ -592,7 +592,7 @@ Resources:
             put:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Joinhomexaccount.Arn}/invocations
@@ -643,7 +643,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Adduserinterest.Arn}/invocations
@@ -670,7 +670,7 @@ Resources:
             get:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ListUserinterest.Arn}/invocations
@@ -721,7 +721,7 @@ Resources:
             get:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ListUserByAccount.Arn}/invocations
@@ -772,7 +772,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Login.Arn}/invocations
@@ -821,7 +821,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Logout.Arn}/invocations
@@ -870,7 +870,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Resetpasswordcode.Arn}/invocations
@@ -919,7 +919,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ResetPassword.Arn}/invocations
@@ -968,7 +968,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Addinterestmetdata.Arn}/invocations
@@ -995,7 +995,7 @@ Resources:
             get:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Listinterests.Arn}/invocations
@@ -1046,7 +1046,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ResendConfirmation.Arn}/invocations
@@ -1095,7 +1095,7 @@ Resources:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AddHomexCloudPanel.Arn}/invocations
@@ -1146,7 +1146,7 @@ Resources:
             put:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RemoveSlaveHomexCloudPanel.Arn}/invocations
@@ -1197,7 +1197,7 @@ Resources:
             get:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ListHomexCloudSlavePanelForAccount.Arn}/invocations
@@ -1248,7 +1248,7 @@ Resources:
             put:
               x-amazon-apigateway-integration:
                 httpMethod: POST
-                type: aws_proxy
+                type: aws
                 uri:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RemoveHomexCloudSlavePanelFromAccount.Arn}/invocations
