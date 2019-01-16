@@ -2,6 +2,7 @@ const _ = require('lodash');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 global.fetch = require('node-fetch');
+const bcrypt = require("bcryptjs");
 const validator = require('validator');
 
 const dynamoDb = require('../db/dynamodb');
@@ -110,49 +111,5 @@ module.exports.login = (req, res) => {
                 }
             }
         });
-    }
-};
-
-
-
-module.exports.logout = (req, res) => {
-    console.log(">> Entering logout Function");
-    const body = _.pick(req.body, ['userName']);
-
-    console.log("userName", body.userName);
-    body.userName = (body.userName).toLowerCase();
-    console.log("userName", body.userName);
-
-    if (_.isEmpty(body.userName)) {
-        console.error('userName cannot be empty.');
-        throw new UsernameNotFound(req.t('UsernameNotFound'));
-    } else if (!validator.isEmail(body.userName)) {
-        console.error('userName cannot be empty.');
-        throw new EmailIdNotFound(req.t('WrongFormattedEmailId'));
-    } else {
-        // Aws congnito related logic
-        const poolData = {
-            UserPoolId: config.aws.UserPoolId,
-            ClientId: config.aws.ClientId
-        };
-        const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-        var userData = {
-            Username: body.userName,
-            Pool: userPool
-        };
-        const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-        try {
-            cognitoUser.signOut();
-            return res.status(200).json({
-                success: true,
-                message: req.t('logoutsuccess')
-            });
-        } catch (errCognito) {
-            console.log(errCognito);
-          return res.status(401).json({
-                errorcode: errCognito.errorcode,
-                errormessage: errCognito.errormessage
-            });
-        }
     }
 };

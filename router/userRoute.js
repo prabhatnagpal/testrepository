@@ -8,18 +8,10 @@ const userController = require('../controllers/userController');
 userRoute.route('/')
         .post(userController.registerUser);
 
-userRoute.route('/:id')
-         .get( userController.getUser);
+userRoute.route('/:username')
+         .get( userController.getUser)
+         .put( userController.updateEmail);
 
-userRoute.route('/:id/join')
-         .put( userController.addUserToHomexAccount);
-
-userRoute.route('/:id/profile')
-         .put( userController.userDetails);
-
-userRoute.route('/:id/interest')
-         .get( userController.getuserInterest)
-         .post(userController.addUserInterest);
 
 userRoute.route('/isconfirmed')
          .post(userController.isUserConfirm);
@@ -33,7 +25,7 @@ userRoute.route('/resetpassword')
 userRoute.route('/resendconfirmation')
          .post(userController.resendConfirmation);
 
-userRoute.route('/:id/refreshtoken')
-         .post(userController.refreshtoken);
+userRoute.route('/:username/refreshtoken')
+         .get(userController.refreshtoken);
 
 module.exports = userRoute;

@@ -6,9 +6,7 @@ const validator = require('validator');
 const _ = require('lodash');
 
 const dynamoDb = require('../db/dynamodb');
-const userService = require('../service/userService');
 const USERS_TABLE = process.env.USERS_TABLE;
-const USERINTERESTS_TABLE = process.env.USERINTERESTS_TABLE;
 const config = require('../config/aws.json');
 
 const EmailIdNotFound = require('../error/EmailIdNotFound');
@@ -23,15 +21,9 @@ const VerificationCodeNotFound = require('../error/VerificationCodeNotFound');
 
 module.exports.registerUser = (req, res) => {
     console.log('>>> Entering registerUser Function >> ', req.body);
-    let isAppOnly = false;
     const timestamp = new Date().toISOString();
     const data = req.body;
-    if (req.query && req.query.apponly){
-        console.log("req.query.apponly :: ", req.query.apponly);
-        isAppOnly = req.query.apponly === 'true' ? true : false;
-    }
-    console.log("isAppOnly :: ", isAppOnly);
-    
+
     if (_.isEmpty(data.emailId)) {
         console.error('emailId cannot be empty');
         throw new EmailIdNotFound(req.t('EmailIdNotFound'));
@@ -47,17 +39,17 @@ module.exports.registerUser = (req, res) => {
     } else if (_.isEmpty(data.password)) {
         console.error('password cannot be empty.');
         throw new PasswordNotFound(req.t('PasswordNotFound'));
-    } else if (!validator.matches(data.password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")) {
+    } else if (!validator.matches(data.password,"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")) {
         console.error('password does not match regex');
         throw new InvalidPasswordException(req.t('InvalidPasswordException'));
-    } else if (_.isEmpty(data.firstName)) {
+    }else if (_.isEmpty(data.firstName)) {
         console.error('firstName cannot be empty.');
         throw new FirstNameNotFound(req.t('FirstNameNotFound'));
     } else {
-        console.log("userName", data.userName);
+        console.log("userName",data.userName);
         data.userName = (data.userName).toLowerCase();
         data.emailId = (data.emailId).toLowerCase();
-        console.log("userName", data.userName);
+        console.log("userName",data.userName);
         const params = {
             TableName: USERS_TABLE,
             KeyConditionExpression: "#uname = :username",
@@ -86,104 +78,48 @@ module.exports.registerUser = (req, res) => {
                         errormessage: req.t('UserNameAlreadyExists')
                     });
                 } else {
-                    console.log("Validating app only flag :: ", isAppOnly);
-                    console.log("Validating app only flag :: ", !isAppOnly);
-                    // Validating app only flag if true then user will created in DB only 
-                    // if false then it will created in cognito and db both
-                    if (!isAppOnly) {
-                        console.log(`app only flag is  ${isAppOnly} now creating user in cognito`);
-                        // Aws congnito related logic
-                        const poolData = {
-                            UserPoolId: config.aws.UserPoolId,
-                            ClientId: config.aws.ClientId
-                        };
-                        const pool_region = config.aws.region;
-                        const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+                    // Aws congnito related logic
+                    const poolData = {
+                        UserPoolId: config.aws.UserPoolId,
+                        ClientId: config.aws.ClientId
+                    };
+                    const pool_region = config.aws.region;
+                    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-                        console.log("pool set up done. now setting up data to list ");
-                        let attributeList = [];
-                        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
-                            Name: "email",
-                            Value: data.emailId
-                        }));
-                        console.log("now signup congnito");
+                    console.log("pool set up done. now setting up data to list ");
+                    let attributeList = [];
+                    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
+                        Name: "email",
+                        Value: data.emailId
+                    }));
+                    console.log("now signup congnito");
 
-                        userPool.signUp(data.emailId, data.password, attributeList, null, (err, result) => {
-                            if (err) {
-                                console.error(err);
-                                const exception = err.code;
-                                if (exception === 'ResourceNotFoundException' || exception === 'NotAuthorizedException') {
-                                    return res.status(401).json({
-                                        errorcode: err.code,
-                                        errormessage: err.message
-                                    });
-                                } else {
-                                    return res.status(400).json({
-                                        errorcode: err.code,
-                                        errormessage: err.message
-                                    });
-                                }
-                            }
-                            cognitoUser = result.user;
-                            console.log('user name is ', cognitoUser);
-                            console.log("congnito signup end");
-                            let accountIds = [];
-                            if (data.accountId) {
-                                accountIds[0] = data.accountId;
-                            }
-                            const params = {
-                                TableName: USERS_TABLE,
-                                Item: {
-                                    id: uuid.v1(),
-                                    emailId: data.emailId,
-                                    firstName: data.firstName,
-                                    lastName: data.lastName,
-                                    userName: data.userName,
-                                    accountIds: accountIds,
-                                    role: data.role || 'user',
-                                    mobileNumber: data.mobileNumber,
-                                    isActive: true,
-                                    createdAt: timestamp,
-                                    updatedAt: timestamp
-                                }
-                            };
-                            const user = {
-                                "id": params.Item.id,
-                                'emailId': params.Item.emailId,
-                                "firstName": params.Item.firstName,
-                                "lastName": params.Item.lastName,
-                                "userName": params.Item.userName,
-                                "accountIds": params.Item.accountIds,
-                                "role": params.Item.role,
-                                "isActive": true,
-                                "mobileNumber": params.Item.mobileNumber,
-                                "createdAt": params.Item.createdAt,
-                                "updatedAt": params.Item.updatedAt
-                            };
-                            console.log('adding user to dynamodb');
-                            dynamoDb.put(params, (error, result) => {
-                                if (error) {
-                                    console.error(error);
-                                    res.status(400).json({
-                                        errorcode: 'UserNameAlreadyExists',
-                                        errormessage: req.t('UserNameAlreadyExists')
-                                    });
-                                }
-                                res.status(200).json({
-                                    success: true,
-                                    user: user
+                    userPool.signUp(data.emailId, data.password, attributeList, null, (err, result) => {
+                        if (err) {
+                            console.error(err);
+                            const exception = err.code;
+                            if (exception === 'ResourceNotFoundException' || exception === 'NotAuthorizedException') {
+                                return res.status(401).json({
+                                    errorcode: err.code,
+                                    errormessage: err.message
                                 });
-                            });
-                        });
-                    } else {
-                        let accountIds = [];
-                        if (data.accountId) {
-                            accountIds[0] = data.accountId;
+                            } else {
+                                return res.status(400).json({
+                                    errorcode: err.code,
+                                    errormessage: err.message
+                                });
+                            }
                         }
+                        cognitoUser = result.user;
+                        console.log('user name is ', cognitoUser);
+                        console.log("congnito signup end");
+                        let accountIds = [];
+                        if(data.accountId) {
+                            accountIds[0] = data.accountId;
+                        } 
                         const params = {
                             TableName: USERS_TABLE,
                             Item: {
-                                id: uuid.v1(),
                                 emailId: data.emailId,
                                 firstName: data.firstName,
                                 lastName: data.lastName,
@@ -197,12 +133,11 @@ module.exports.registerUser = (req, res) => {
                             }
                         };
                         const user = {
-                            "id": params.Item.id,
                             'emailId': params.Item.emailId,
                             "firstName": params.Item.firstName,
                             "lastName": params.Item.lastName,
                             "userName": params.Item.userName,
-                            "accountIds": params.Item.accountIds,
+                            "accountIds":params.Item.accountIds,
                             "role": params.Item.role,
                             "isActive": true,
                             "mobileNumber": params.Item.mobileNumber,
@@ -223,7 +158,7 @@ module.exports.registerUser = (req, res) => {
                                 user: user
                             });
                         });
-                    }
+                    });
                 }
             }
         });
@@ -232,53 +167,51 @@ module.exports.registerUser = (req, res) => {
 
 module.exports.getUser = (req, res) => {
     console.log('>>>getUser', req);
-    let userId = req.params.id;
-    console.log('userId==>' + userId);
+    let userName = req.params.username;
+    userName = userName.toLowerCase();
+    console.log('userName==>' + userName);
 
     var params = {
         TableName: USERS_TABLE,
-        FilterExpression: "#id = :id",
+        KeyConditionExpression: "#uname = :username",
         ExpressionAttributeNames: {
-            "#id": "id"
+            "#uname": "userName"
         },
         ExpressionAttributeValues: {
-            ":id": userId
+            ":username": userName
         }
     };
 
-    dynamoDb.scan(params, onScan);
-    let count = 0;
-
-    function onScan(err, data) {
-        let user;
-        if (err) {
-            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-            return res.status(400).json({
+    dynamoDb.query(params, (error, result) => {
+        if (error) {
+            console.error("Unable to query. Error:", JSON.stringify(error, null, 2));
+            res.status(400).json({
                 errorcode: 'UserNotFound',
                 errormessage: req.t('UserNotFound')
             });
         } else {
-            console.log("Scan succeeded.");
-            data.Items.forEach(function (itemdata) {
-                console.log("Item :", ++count, JSON.stringify(itemdata));
+            console.log("Query succeeded.");
+            console.log("Query succeeded." + JSON.stringify(result));
+            let user;
+            result.Items.forEach(function (item) {
+                console.log(" Item :: ", JSON.stringify(item));
                 user = item;
             });
-            // continue scanning if we have more items
-            if (typeof data.LastEvaluatedKey != "undefined") {
-                console.log("Scanning for more...");
-                params.ExclusiveStartKey = data.LastEvaluatedKey;
-                docClient.scan(params, onScan);
-            } else {
-                return res.status(200).json({
+            if (result && result.Items) {
+                res.status(200).json({
                     success: true,
-                    user
+                    user: user
+                });
+            } else {
+                console.log("No User found");
+                res.status(400).json({
+                    errorcode: 'UserNotFound',
+                    errormessage: req.t('UserNotFound')
                 });
             }
         }
-    }
+    });
 };
-
-
 module.exports.verifyUser = (req, res) => {
     console.log('>>>verifyUser');
     console.log('request body==>', req.body);
@@ -326,12 +259,9 @@ module.exports.getUserByAccount = (req, res) => {
         throw new AccountNotFound(req.t('AccountIdNotFound'));
     } else {
         console.log(`request verified now retriving account for Id: ${accountId}`);
-        const params = {
+        var params = {
             TableName: USERS_TABLE,
-            "FilterExpression": "contains (#accountIds,:accountId)",
-            ExpressionAttributeNames: {
-                "#accountIds": "accountIds"
-            },
+            "FilterExpression": "accountId IN (:accountId)",
             ExpressionAttributeValues: {
                 ":accountId": accountId
             }
@@ -599,54 +529,31 @@ module.exports.resetPassword = (req, res) => {
     }
 };
 
-module.exports.addUserToHomexAccount = async (req, res) => {
-    console.log('|| >> Entering linkUsertoAccount with req :', req.body);
+module.exports.linkUsertoAccount = (accountId, emailId) => {
+    console.log('|| >> Entering linkUsertoAccount with accountId :', accountId);
     const timestamp = new Date().toISOString();
-    const adminUserId = req.params.id;
-    const body = _.pick(req.body, ['accountId', 'userName']);
-    let userName = (body.userName).toLowerCase();
-    console.log("accountId", body.accountId);
-    const isUserAdmin = await userService.IsAdminUser(body.accountId,adminUserId);
-    console.log('isUserAdmin :', isUserAdmin);
-    if (isUserAdmin){
-        const params = {
-            TableName: USERS_TABLE,
-            Key: {
-                "userName": userName
-            },
-            UpdateExpression: "set #attrName = list_append(#attrName, :attrValue) , #updatedAt = :updatedAt",
-            ExpressionAttributeNames: {
-                "#attrName": "accountIds",
-                "#updatedAt": "updatedAt"
-            },
-            ExpressionAttributeValues: {
-                ":attrValue": [body.accountId],
-                ":updatedAt" : timestamp
-            },
-            ReturnValues: "UPDATED_NEW"
-        };
-        console.log('params <=>:', params);
-        dynamoDb.update(params, function (err, data) {
-            if (err) {
-                console.log(err);
-                return res.status(400).json({
-                    errorcode: err.code,
-                    errormessage: err.message
-                });
-            } else {
-                console.log(data);
-                return res.status(200).json({
-                    success: true,
-                    message: "user & homex account linked succesfully"
-                });
-            }
-        });
-    } else {
-        return res.status(400).json({
-            errorcode: 'INVALIDOPERATION',
-            errormessage: 'User don\'t have privaledge to add user'
-        });
-    }
+    emailId = emailId.toLowerCase();
+    const params = {
+        TableName: USERS_TABLE,
+        Key: {
+            "userName": emailId
+        },
+        UpdateExpression: "set #attrName = list_append(#attrName, :attrValue)",
+        ExpressionAttributeNames: {
+            "#attrName": "accountIds"
+        },
+        ExpressionAttributeValues: {
+            ":attrValue": [accountId]
+        },
+        ReturnValues: "UPDATED_NEW"
+    };
+    dynamoDb.update(params, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(data);
+        }
+    });
 };
 
 
@@ -709,10 +616,10 @@ module.exports.updateEmail = (req, res) => {
 
 module.exports.refreshtoken = (req, res) => {
     console.log(">> Entering refreshtoken Function");
-    const body = _.pick(req.body, ['userName','refreshToken']);
-    let userName = (body.userName).toLowerCase();
+    let userName = req.params.username;
+    userName = userName.toLowerCase();
     console.log('userName==>' + userName);
-    const refToken = body.refreshToken;
+    const refToken = req.get('refreshToken');
 
     if (!validator.isEmail(userName)) {
         console.error('userName cannot be empty.');
@@ -756,169 +663,3 @@ module.exports.refreshtoken = (req, res) => {
         });
     }
 };
-
-module.exports.userDetails = (req, res) => {
-    console.log('|| >> Entering userDetails :', req);
-    console.log('>>>getUser', req);
-    const timestamp = new Date().toISOString();
-
-    const body = req.body;
-    const userName = (body.userName).toLowerCase();
-    console.log("Request body", body);
-
-    const params = {
-        TableName: USERS_TABLE,
-        Key: {
-            "userName": userName
-        },
-        UpdateExpression: "set #address = :address, #city = :city, #state = :state, #country= :country, #zip = :zip, #firstName = :firstName , #mobileNumber = :mobileNumber , #lastName = :lastName, #updatedAt = :updatedAt, #dateofbirth = :dob , #gender = :gender",
-        ExpressionAttributeNames: {
-            "#updatedAt": "updatedAt",
-            "#dateofbirth": "dateofbirth",
-            "#gender": "gender",
-            "#firstName" : "firstName",
-            "#lastName" : "lastName",
-            "#mobileNumber": "mobileNumber",
-            "#address" :"address",
-            "#city": "city",
-            "#state": "state",
-            "#country": "country",
-            "#zip": "zip"
-        },
-        ExpressionAttributeValues: {
-            ":dob": body.dateofbirth,
-            ":gender": body.gender,
-            ":updatedAt": timestamp,
-            ":firstName" : body.firstName,
-            ":lastName" : body.lastName,
-            ":mobileNumber": body.mobileNumber,
-            ":address" :body.address,
-            ":city": body.city,
-            ":state": body.state,
-            ":country": body.country,
-            ":zip": body.zip
-        },
-        ReturnValues: "ALL_NEW"
-    };
-    dynamoDb.update(params, function (err, data) {
-        if (err) {
-            console.log(err);
-            return res.status(400).json({
-                errorcode: err.code,
-                errormessage: err.message
-            });
-        } else {
-            console.log(data);
-            return res.status(200).json({
-                success: true,
-                message: "user profile updated succesfully"
-            });
-        }
-    });
-};
-
-
-module.exports.getuserInterest = (req, res) => {
-    console.log('>>>getAccount', req);
-    const userId = req.params.id;
-    console.log('userId==>' + userId);
-    const params = {
-      TableName: USERINTERESTS_TABLE,
-      FilterExpression: "#userId = :userId",
-      ExpressionAttributeNames: {
-        "#userId": "userId"
-      },
-      ExpressionAttributeValues: {
-        ":userId": userId
-      }
-    };
-  
-    dynamoDb.scan(params, onScan);
-    let count = 0;
-  
-    function onScan(err, data) {
-      let interests = [];
-      if (err) {
-        console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        return res.status(404).json({
-          errorcode: 'UserInterestNotFound',
-          errormessage: req.t('UserInterestNotFound')
-        });
-      } else {
-        console.log("Scan succeeded.");
-        data.Items.forEach(function (itemdata) {
-          console.log("Item :", ++count, JSON.stringify(itemdata));
-          interests.push(itemdata);
-        });
-        // continue scanning if we have more items
-        if (typeof data.LastEvaluatedKey != "undefined") {
-          console.log("Scanning for more...");
-          params.ExclusiveStartKey = data.LastEvaluatedKey;
-          docClient.scan(params, onScan);
-        } else {
-          return res.status(200).json({
-            success: true,
-            interests
-          });
-        }
-      }
-    }
-  };
-  
-  module.exports.addUserInterest = (req, res) => {
-      console.log('>>>addUserInterest');
-      const timestamp = new Date().toISOString();
-      const userId = req.params.id;
-      console.log('userId==>' + userId);
-      const data = req.body;
-      // Request Validation
-      if (_.isEmpty(data.interests)) {
-          return res.status(400).json({
-              errorcode: 'INTERESTNOTFOUND',
-              errormessage: req.t('INTERESTNOTFOUND')
-          });
-      } else if (_.isEmpty(data.category)) {
-          return res.status(400).json({
-              errorcode: 'INTERESTCATEGORYNOTFOUND',
-              errormessage: req.t('INTERESTCATEGORYNOTFOUND')
-          });
-      } else {
-          console.log('request verified');
-          const params = {
-              TableName: USERINTERESTS_TABLE,
-              Item: {
-                  id: uuid.v1(),
-                  userId: userId,
-                  category: data.category,
-                  interest: data.interests,
-                  createdAt: timestamp,
-                  updatedAt: timestamp
-              }
-          };
-          const interest = {
-              "id": params.Item.id,
-              "category": params.Item.category,
-              'interest': params.Item.interest,
-              "userId": params.Item.userId,
-              "createdAt": params.Item.createdAt,
-              "updatedAt": params.Item.updatedAt
-          };
-
-          console.log('interest >> ', interest);
-          console.log('adding data to dynamodb');
-          dynamoDb.put(params, (error, result) => {
-              if (error) {
-                  console.error(error);
-                  return res.status(400).json({
-                      errorcode: 'interestCreationError',
-                      errormessage: req.t('interestCreationError')
-                  });
-              } else {
-                  return res.status(200).json({
-                      success: true,
-                      interest
-                  });
-              }
-          });
-      }
-  };

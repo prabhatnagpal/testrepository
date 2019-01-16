@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const jwkToPem = require('jwk-to-pem');
-const config = require('../config/aws.json');
 
 const jwk = {
     "alg": "RS256",
@@ -18,14 +17,12 @@ const generatePolicy = (principalId, effect, resource) => {
     authResponse.principalId = principalId;
     if (effect && resource) {
         const policyDocument = {};
-        policyDocument.Version = '2012-10-17';
+        policyDocument.Version = '2018-11-21';
         policyDocument.Statement = [];
         const statementOne = {};
-        statementOne.Action = [];
-        statementOne.Action [0] = "execute-api:Invoke";
+        statementOne.Action = 'execute-api:Invoke';
         statementOne.Effect = effect;
-        statementOne.Resource = [ ];
-        statementOne.Resource [0] = "*";
+        statementOne.Resource = '*';
         policyDocument.Statement[0] = statementOne;
         authResponse.policyDocument = policyDocument;
     }
@@ -34,7 +31,7 @@ const generatePolicy = (principalId, effect, resource) => {
 
 
 module.exports.auth = async (event, context, callback) => {
-    console.log('Received event: :: ' , JSON.stringify(event));
+    console.log('Received event: :: ' + JSON.stringify(event));
     console.log('context =', context);
     let token;
     if (event.authorizationToken) {
@@ -48,25 +45,8 @@ module.exports.auth = async (event, context, callback) => {
             console.log('err :: ' + err);
             return callback(new Error('[401] Unauthorized, authorization Token expired'));
         }
-        const Iss = `https://cognito-idp.${config.aws.region}.amazonaws.com/${config.aws.UserPoolId}`;
-
-        //Fail if token is not from  User Pool
-        console.log(`checking ISS  with with decoded ISS`);
-        if (decoded.iss != Iss) {
-            console.log(`ISS ${decoded.iss} does not match with ${Iss}`);
-            return callback(new Error('[401] Unauthorized, Invalid authorization Token'));
-        }
-        //Reject the jwt if it's not an 'Access Token'
-        console.log('checking token_use');
-        if (decoded.token_use != 'access') {
-            console.log('token_use does not match');
-            return callback(new Error('[401] Unauthorized, Invalid authorization Token'));
-        }
-
         // if everything is good, save to request for use in other routes
-        console.log('decoded JWT :: ', decoded);
-        const authResponse = generatePolicy(decoded.sub, 'Allow', event.methodArn);
-        console.log('policy :: ', JSON.stringify(authResponse));
-        return callback(null, authResponse);
+        console.log('success :: ',decoded);
+        return callback(null, generatePolicy(decoded.sub, 'Allow', event.methodArn));
     });
 };

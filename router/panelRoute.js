@@ -6,8 +6,4 @@ const panelController = require('../controllers/panelController');
 panelRoute.route('/')
     .post(panelController.addhomexPanel);
 
-panelRoute.route('/:id')
-    .put(panelController.removeSlavehomexPanel);
-
-
-module.exports = panelRoute;
+    module.exports = panelRoute;

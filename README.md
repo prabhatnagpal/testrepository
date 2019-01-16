@@ -1,6 +1,5 @@
 # HomexCloud Microservices
 
-<<<<<<< .mine
 Microservices contains all of the Lambda Functions & exposed as api with API gateway Integration.
 
 ## Prerequisites
@@ -74,11 +73,3 @@ Terminals open running these commands:
 * npm install -g serverless
 * serverless config credentials --provider aws --key accessKey --secret secretKey
 * serverless deploy
-||||||| .r4
-this is a test repository
-commit 2
-=======
-Test Repository for Lambda Deployment
-
-Source: https://www.youtube.com/watch?v=aGI4Wlm5c9U
->>>>>>> .r53
