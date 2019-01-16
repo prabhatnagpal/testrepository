@@ -5,7 +5,7 @@ version: V1.0.0
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: RP-Dev
+  stage: RPDev
   region: us-west-2
   environment:
     USERS_TABLE: ${self:custom.table.userTable}
