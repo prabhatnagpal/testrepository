@@ -20,9 +20,9 @@ plugins:
 custom:
   tableThroughput: 5
   table:
-    accountTable: 'account'
-    userTable: 'user'
-    panelTable: 'panel'
+    accountTable: 'account-demo'
+    userTable: 'user-demo'
+    panelTable: 'panel-demo'
   customDomain:
     domainName: 'api.homexcloud.com'
     basePath: 'v1'
