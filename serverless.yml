@@ -15,7 +15,7 @@ plugins:
   - serverless-domain-manager
   - serverless-aws-documentation
   - serverless-offline
-
+  - serverless-sam
 
 custom:
   tableThroughput: 5
