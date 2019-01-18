@@ -162,6 +162,14 @@ functions:
 
 resources:
    Resources:
+    pathmapping:
+      Type: 'AWS::ApiGateway::BasePathMapping'
+      Properties:
+        BasePath: v2
+        DomainName: 'api.homexcloud.com'
+        RestApiId:
+          Ref: HomexcloudApi
+        Stage: ${self:provider.stage}
     accountDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
