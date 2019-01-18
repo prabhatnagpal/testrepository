@@ -167,8 +167,6 @@ resources:
       Properties:
         BasePath: v2
         DomainName: 'api.homexcloud.com'
-        RestApiId:
-          Ref: HomexcloudApi
         Stage: ${self:provider.stage}
     accountDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
